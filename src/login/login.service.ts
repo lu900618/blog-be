@@ -9,6 +9,11 @@ export class LoginService {
   constructor(@InjectModel(User) private readonly userModel: ReturnModelType<typeof User>) { }
 
   async register(user: UserDTO) {
+    const { username } = user;
+    const u = await this.userModel.findOne({ username });
+    if (u) {
+      throw new HttpException({ message: '该用户已存在' }, 400);
+    }
     return await this.userModel.create(user);
   }
 
@@ -16,7 +21,7 @@ export class LoginService {
     const userList: UserDTO[] = await this.userModel.find(user);
     const isRegister: boolean = userList.length > 0;
     if (!isRegister) {
-      throw new HttpException({message: '用户名或密码错误'}, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ message: '用户名或密码错误' }, HttpStatus.BAD_REQUEST);
     }
     return userList[0];
   }

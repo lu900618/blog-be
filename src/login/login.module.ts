@@ -1,4 +1,4 @@
-import { User } from './user.model'
+import { User } from './user.model';
 import { Module } from '@nestjs/common';
 import { LoginController } from './login.controller';
 import { LoginService } from './login.service';
@@ -8,7 +8,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
   controllers: [LoginController],
   providers: [LoginService],
   imports: [
-    TypegooseModule.forFeature([User])
+    TypegooseModule.forFeature([User]),
   ],
 })
 export class LoginModule { }

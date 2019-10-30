@@ -1,6 +1,6 @@
-import { LoginService } from './login.service'
-import { UserDTO } from './UserDTO'
-import { Controller, Post, Body } from '@nestjs/common';
+import { LoginService } from './login.service';
+import { UserDTO } from './UserDTO';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
 
 @Controller()
@@ -14,6 +14,7 @@ export class LoginController {
    * @param user
    */
   @Post('register')
+  @ApiOperation({ title: '用户注册' })
   register(@Body() user: UserDTO) {
     return this.loginService.register(user);
   }
@@ -23,6 +24,7 @@ export class LoginController {
    * @param user
    */
   @Post('login')
+  @ApiOperation({ title: '用户登录' })
   login(@Body() user: UserDTO) {
     return this.loginService.login(user);
   }
